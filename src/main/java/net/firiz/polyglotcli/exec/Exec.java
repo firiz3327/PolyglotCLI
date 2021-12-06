@@ -24,6 +24,7 @@ public interface Exec {
         try (final InputStream inputStream = new ByteArrayInputStream(String.join(System.lineSeparator(), Arrays.asList(project.getArguments())).getBytes(StandardCharsets.UTF_8))) {
             final Context.Builder builder = Context.newBuilder(permittedLanguages)
                     .in(inputStream)
+//                .in(System.in)
                     .out(System.out)
                     .err(System.err)
                     .allowExperimentalOptions(true)

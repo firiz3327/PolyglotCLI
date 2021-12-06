@@ -41,6 +41,10 @@ Executes the code received as a command line argument and outputs the result to 
     ```
   console.log("Hello World!");
     ```
+* Result:
+    ```
+    Hello World!
+    ```
 ### C
 * Command: `java net.firiz.polyglotcli.Main -w ./examples/ llvm ./examples/test 1 2`
 * Compiled Source:
@@ -56,16 +60,29 @@ Executes the code received as a command line argument and outputs the result to 
       return 0;
   }
     ```
+* Result:
+    ```
+  Hello World!
+  args count 3
+  [0]: /polyglotCLI/examples/test
+  [1]: 1
+  [2]: 2
+    ```
 ### Java
-* Command: `java net.firiz.polyglotcli.Main -w ./ -C ./examples java Test 1 2`
+* Command: `java net.firiz.polyglotcli.Main -w ./ -classpath ./examples java Test 1 2`
 * Compiled Source:
     ```
   import java.util.Arrays;
   
-  public class ArgsTest {
+  public class Test {
         public static void main(String[] var0) {
             System.out.println("Hello World! args: " + Arrays.toString(var0));
             System.out.println(System.getProperty("java.home"));
         }
   }
+    ```
+* Result:
+    ```
+  Hello World! args: [1, 2]
+  /graalvm
     ```

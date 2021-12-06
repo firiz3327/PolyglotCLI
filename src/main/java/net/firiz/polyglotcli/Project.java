@@ -23,7 +23,7 @@ public class Project {
     @Argument(index = 1, metaVar = "main", required = true, usage = "Sets a main")
     private String main;
     @Nullable
-    @Argument(index = 2, metaVar = "args", usage = "Sets a arguments")
+    @Argument(index = 2, metaVar = "arguments", usage = "Sets a arguments")
     private String[] arguments;
     @Nullable
     @Option(name = "-m", metaVar = "module", usage = "Sets a module")
@@ -37,8 +37,11 @@ public class Project {
      * Java Options
      */
     @Nullable
-    @Option(name = "-C", metaVar = "classpath", usage = "Sets a classpath")
+    @Option(name = "-classpath", usage = "Sets a classpath")
     private String classPath;
+    @Nullable
+    @Option(name = "-jdk", usage = "Sets a jdk")
+    private String jdk;
 
     private static final Pattern windowsPathPattern = Pattern.compile("[A-Z]:");
 
@@ -113,6 +116,10 @@ public class Project {
 
     public @Nullable String getClassPath() {
         return classPath;
+    }
+
+    public @Nullable String getJdk() {
+        return jdk;
     }
 
     public LanguageType getLanguageType() {

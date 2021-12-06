@@ -14,13 +14,13 @@ public class JavaExec implements Exec {
 
     @Override
     public int exec(Project project) {
-        String module = project.getModule();
-        if (module == null || module.equals("default")) {
-            module = System.getProperty("java.home");
+        String jdk = project.getJdk();
+        if (jdk == null || jdk.equals("default")) {
+            jdk = System.getProperty("java.home");
         } else if (StringUtils.isLinux()) {
-            module = StringUtils.linuxPath(module);
+            jdk = StringUtils.linuxPath(jdk);
         }
-        return espresso(project, module);
+        return espresso(project, jdk);
     }
 
     private int espresso(Project project, String module) {
