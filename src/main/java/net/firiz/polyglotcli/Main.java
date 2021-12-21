@@ -1,5 +1,6 @@
 package net.firiz.polyglotcli;
 
+import net.firiz.polyglotcli.language.LanguageType;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 
@@ -22,8 +23,9 @@ public final class Main {
         try {
             parser.parseArgument(args);
             project.check();
-            if (project.getLanguageType() != null) {
-                exit = project.getLanguageType().getExec().exec(project);
+            final LanguageType languageType = project.getLanguageType();
+            if (languageType != null) {
+                exit = languageType.getExec().exec(project);
             }
         } catch (CmdLineException e) {
             System.err.println(e.getMessage());

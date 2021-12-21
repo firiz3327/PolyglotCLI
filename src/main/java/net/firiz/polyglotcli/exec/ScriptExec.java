@@ -14,8 +14,9 @@ public class ScriptExec implements Exec {
         if (project.getLanguageType() == null || project.getLanguage() == null) {
             throw new ProjectException("project is not checked.");
         }
-        try (final Context context = createContext(project, project.getLanguageType().getName())) {
-            context.eval(Source.newBuilder(project.getLanguage(), project.getMainFile()).build());
+        final String language = project.getLanguageType().getName();
+        try (final Context context = createContext(project, language)) {
+            context.eval(Source.newBuilder(language, project.getMainFile()).build());
             return 0;
         } catch (IOException e) {
             e.printStackTrace();

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.function.Consumer;
 
 public interface Exec {
@@ -21,7 +22,7 @@ public interface Exec {
     }
 
     default Context createContext(@NotNull Project project, @Nullable Consumer<Context.Builder> consumer, @NotNull String... permittedLanguages) throws IOException {
-        try (final InputStream inputStream = new ByteArrayInputStream(String.join(System.lineSeparator(), Arrays.asList(project.getArguments())).getBytes(StandardCharsets.UTF_8))) {
+        try (final InputStream inputStream = new ByteArrayInputStream(String.join(System.lineSeparator(), project.getArguments() == null ? Collections.emptyList() : Arrays.asList(project.getArguments())).getBytes(StandardCharsets.UTF_8))) {
             final Context.Builder builder = Context.newBuilder(permittedLanguages)
                     .in(inputStream)
 //                .in(System.in)

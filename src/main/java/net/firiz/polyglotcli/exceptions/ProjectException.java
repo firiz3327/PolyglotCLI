@@ -6,4 +6,8 @@ public class ProjectException extends RuntimeException {
         super(message);
     }
 
+    public ProjectException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }

@@ -1,8 +1,8 @@
 package net.firiz.polyglotcli;
 
+import net.firiz.polyglotcli.exceptions.ProjectException;
 import net.firiz.polyglotcli.language.LanguageType;
 import net.firiz.polyglotcli.utils.StringUtils;
-import net.firiz.polyglotcli.exceptions.ProjectException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.kohsuke.args4j.Argument;
@@ -59,11 +59,11 @@ public class Project {
         if (main == null) {
             throw new ProjectException("main is null.");
         }
-        if (language.equals("java")) {
+        if (languageType == LanguageType.JAVA) {
             if (classPath == null) {
                 throw new ProjectException("In the java language, the classes argument is mandatory.");
             }
-        } else {
+        } else { // parse linux path
             if (StringUtils.isLinux() && windowsPathPattern.matcher(main).find()) {
                 main = StringUtils.linuxPath(main);
             }
@@ -72,6 +72,7 @@ public class Project {
                 throw new ProjectException("Failed to load the main file.");
             }
         }
+        // classpath parse linux path
         if (StringUtils.isLinux()) {
             if (workingDirectory != null && windowsPathPattern.matcher(workingDirectory.getPath()).find()) {
                 workingDirectory = new File(StringUtils.linuxPath(workingDirectory.getPath()));
@@ -122,7 +123,7 @@ public class Project {
         return jdk;
     }
 
-    public LanguageType getLanguageType() {
+    public @Nullable LanguageType getLanguageType() {
         return languageType;
     }
 
